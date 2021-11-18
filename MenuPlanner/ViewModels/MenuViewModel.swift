@@ -68,7 +68,7 @@ struct MenuModel: Identifiable {
     }
     
     func breakfastMeals() -> [Meal]? {
-        guard let breakfast = breakfast?.meals?.allObjects as? [Meal] else {
+        guard let breakfast = breakfast?.meals?.array as? [Meal] else {
             return nil
         }
         if breakfast.isEmpty { return nil } else { return breakfast }
@@ -76,14 +76,14 @@ struct MenuModel: Identifiable {
     }
     
     func lunchMeals() -> [Meal]? {
-        guard let lunch = lunch?.meals?.allObjects as? [Meal] else {
+        guard let lunch = lunch?.meals?.array as? [Meal] else {
             return nil
         }
         if lunch.isEmpty { return nil } else { return lunch }
     }
     
     func dinnerMeals() -> [Meal]? {
-        guard let dinner = dinner?.meals?.allObjects as? [Meal] else {
+        guard let dinner = dinner?.meals?.array as? [Meal] else {
             return nil
         }
         if dinner.isEmpty { return nil } else { return dinner }

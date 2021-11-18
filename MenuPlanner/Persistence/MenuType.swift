@@ -7,16 +7,16 @@
 
 import Foundation
 
-enum MenuType {
+enum MenuType: CaseIterable {
     case breakfast
     case lunch
     case dinner
     
     var description: String {
         switch self {
-        case .breakfast: return "1 BREAKFAST"
-        case .lunch: return "2 LUNCH"
-        case .dinner: return "3 DINNER"
+        case .breakfast: return "Breakfast"
+        case .lunch: return "Lunch"
+        case .dinner: return "Dinner"
         }
     }
     
