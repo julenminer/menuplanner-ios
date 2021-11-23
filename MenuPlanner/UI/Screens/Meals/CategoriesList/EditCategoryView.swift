@@ -76,7 +76,7 @@ struct EditCategoryView: View {
     }
     
     private func validateName(name: String) -> Bool {
-        return name.isEmpty
+        return !name.isEmpty
     }
     
     private func validateEmoji(emoji: String) -> Bool {
