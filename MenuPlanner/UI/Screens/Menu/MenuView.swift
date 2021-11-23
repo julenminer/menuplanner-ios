@@ -17,14 +17,14 @@ struct MenuView: View {
             List {
                 ForEach(menuViewModel.menus) { menu in
                     Section(header: Text(menu.date.toLocaleStringWithoutTime())) {
-                        if let breakfast = menu.breakfastMeals() {
-                            MenuMeals(breakfast, type: .breakfast)
+                        if let (id, breakfast) = menu.breakfastMeals() {
+                            MenuMeals(breakfast, id: id, type: .breakfast)
                         }
-                        if let lunch = menu.lunchMeals() {
-                            MenuMeals(lunch, type: .lunch)
+                        if let (id, lunch) = menu.lunchMeals() {
+                            MenuMeals(lunch, id: id, type: .lunch)
                         }
-                        if let dinner = menu.dinnerMeals() {
-                            MenuMeals(dinner, type: .dinner)
+                        if let (id, dinner) = menu.dinnerMeals() {
+                            MenuMeals(dinner, id: id, type: .dinner)
                         }
                     }
                 }
@@ -43,7 +43,11 @@ struct MenuView: View {
 }
 
 private struct MenuMeals: View {
+    @EnvironmentObject private var menuViewModel: MenuViewModel
+    @Environment(\.colorScheme) var currentMode
+    
     let meals: [Meal]
+    let id: UUID
     let menuType: MenuType
     var header: String {
         switch(menuType) {
@@ -56,20 +60,59 @@ private struct MenuMeals: View {
         }
     }
     
-    init(_ meals: [Meal], type: MenuType) {
+    init(_ meals: [Meal], id: UUID, type: MenuType) {
         self.meals = meals
+        self.id = id
         self.menuType = type
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(header)
-                .font(.caption2)
+            HStack {
+                Text(header)
+                    .font(.caption2)
+                Spacer()
+                menuButton
+            }
             ForEach(meals) { meal in
                 Text("\(meal.emoji ?? "")  \(meal.name ?? "")")
                     .padding(.vertical, 1)
             }
-        }.padding(.vertical, 8)
+        }
+        .padding(.vertical, 8)
+        .contextMenu { editMenuItems }
+    }
+    
+    private var menuButton: some View {
+        SwiftUI.Menu {
+            editMenuItems
+        } label: {
+            Image(systemName: "ellipsis")
+                .foregroundColor(currentMode == .light ? Color.black : Color.white )
+        }
+    }
+    
+    private var editMenuItems: some View {
+        deleteButton
+    }
+    
+    private var deleteButton: some View {
+        let action = {
+            menuViewModel.delete(byId: id)
+        }
+        let label = Label("Delete", systemImage: "trash")
+        if #available(iOS 15.0, *) {
+            return Button(
+                role: .destructive,
+                action: action,
+                label: { label }
+            )
+        } else {
+            return Button(
+                action: action,
+                label: { label }
+            )
+        }
     }
 }
 

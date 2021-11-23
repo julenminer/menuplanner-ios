@@ -29,7 +29,7 @@ class MenuViewModel: ObservableObject {
         for menu in menus {
             if(previousDate == nil) {
                 groupedMenus.append(MenuModel(date: menu.date!, withMenu: menu))
-            } else if (Calendar.current.compare(previousDate!, to: menu.date!, toGranularity: .day) == .orderedSame) {
+            } else if (sameDate(previousDate!, menu.date!)){
                 groupedMenus[currentIndex].addMenu(menu)
             } else {
                 currentIndex += 1
@@ -40,9 +40,37 @@ class MenuViewModel: ObservableObject {
         return groupedMenus
     }
     
-    func add(date: Date, type: MenuType, meals: [Meal]) {
-        menuStorage.add(date: date, type: type, meals: meals)
+    private func sameDate(_ date1: Date, _ date2: Date) -> Bool {
+        return Calendar.current.compare(date1, to: date2, toGranularity: .day) == .orderedSame
     }
+    
+    func add(date: Date, type: MenuType, meals: [Meal]) throws {
+        if(existsMenu(atDate: date, withType: type)) {
+            throw MenuViewModelError.DuplicateMenu
+        } else {
+            menuStorage.add(date: date, type: type, meals: meals)
+        }
+    }
+    
+    private func existsMenu(atDate date: Date, withType type: MenuType) -> Bool {
+        guard let menu = menus.first(where: { sameDate($0.date, date) }) else { return false }
+        switch(type) {
+        case .breakfast:
+            return menu.breakfast != nil
+        case .lunch:
+            return menu.lunch != nil
+        case .dinner:
+            return menu.dinner != nil
+        }
+    }
+    
+    func delete(byId id: UUID) {
+        menuStorage.delete(ids: [id])
+    }
+}
+
+enum MenuViewModelError: Error {
+    case DuplicateMenu
 }
 
 struct MenuModel: Identifiable {
@@ -71,26 +99,22 @@ struct MenuModel: Identifiable {
         }
     }
     
-    func breakfastMeals() -> [Meal]? {
-        guard let breakfast = breakfast?.meals?.array as? [Meal] else {
-            return nil
-        }
-        if breakfast.isEmpty { return nil } else { return breakfast }
-
+    func breakfastMeals() -> (UUID, [Meal])? {
+        guard let breakfastId = breakfast?.menuId else { return nil }
+        guard let breakfastMeals = breakfast?.meals?.array as? [Meal] else { return nil }
+        if breakfastMeals.isEmpty { return nil } else { return (breakfastId, breakfastMeals) }
     }
     
-    func lunchMeals() -> [Meal]? {
-        guard let lunch = lunch?.meals?.array as? [Meal] else {
-            return nil
-        }
-        if lunch.isEmpty { return nil } else { return lunch }
+    func lunchMeals() -> (UUID, [Meal])? {
+        guard let lunchId = lunch?.menuId else { return nil }
+        guard let lunchMeals = lunch?.meals?.array as? [Meal] else { return nil }
+        if lunchMeals.isEmpty { return nil } else { return (lunchId, lunchMeals) }
     }
     
-    func dinnerMeals() -> [Meal]? {
-        guard let dinner = dinner?.meals?.array as? [Meal] else {
-            return nil
-        }
-        if dinner.isEmpty { return nil } else { return dinner }
+    func dinnerMeals() -> (UUID, [Meal])? {
+        guard let dinnerId = dinner?.menuId else { return nil }
+        guard let dinnerMeals = dinner?.meals?.array as? [Meal] else { return nil }
+        if dinnerMeals.isEmpty { return nil } else { return (dinnerId, dinnerMeals) }
     }
 }
 

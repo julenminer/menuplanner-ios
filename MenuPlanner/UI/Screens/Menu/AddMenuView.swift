@@ -16,6 +16,8 @@ struct AddMenuView: View {
     @State var menuType: MenuType = .breakfast
     @State var selectedMeals = [Meal]()
     
+    @State var showError: Bool = false
+    
     var body: some View {
         NavigationView {
             Form{
@@ -32,7 +34,13 @@ struct AddMenuView: View {
                 trailing: Button(action: save) {
                     Text("Save")
                 })
-            
+            .alert(isPresented: $showError) {
+                Alert(
+                    title: Text("Menu already exists"),
+                    message: Text("A menu for the selected date and type already exists"),
+                    dismissButton: .default(Text("Accept"))
+                )
+            }
         }
     }
     
@@ -104,8 +112,12 @@ struct AddMenuView: View {
     }
     
     private func save() {
-        menuViewModel.add(date: date, type: menuType, meals: selectedMeals)
-        showAddMenu = false
+        do {
+            try menuViewModel.add(date: date, type: menuType, meals: selectedMeals)
+            showAddMenu = false
+        } catch {
+            showError = true
+        }
     }
     
     

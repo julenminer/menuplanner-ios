@@ -51,6 +51,18 @@ class MenuStorage: NSObject, ObservableObject {
         saveContext()
     }
     
+    func delete(ids: [UUID]) {
+        let menusToDelete = menus.value.filter {
+            guard let menuId = $0.menuId else { return false }
+            return ids.contains(menuId)
+        }
+        menusToDelete.forEach { menu in
+            viewContext.delete(menu)
+        }
+        
+        saveContext()
+    }
+    
     private func saveContext() {
         do {
             try viewContext.save()
