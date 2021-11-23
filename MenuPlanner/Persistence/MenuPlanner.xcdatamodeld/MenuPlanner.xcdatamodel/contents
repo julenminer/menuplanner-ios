@@ -11,16 +11,17 @@
         <attribute name="mealId" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FoodCategory" inverseName="meals" inverseEntity="FoodCategory"/>
+        <relationship name="menus" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Menu" inverseName="meals" inverseEntity="Menu"/>
     </entity>
     <entity name="Menu" representedClassName="Menu" syncable="YES" codeGenerationType="class">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="menuId" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="type" attributeType="String"/>
-        <relationship name="meals" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Meal"/>
+        <relationship name="meals" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Meal" inverseName="menus" inverseEntity="Meal"/>
     </entity>
     <elements>
         <element name="FoodCategory" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="Meal" positionX="268.5369873046875" positionY="-18.18252563476562" width="128" height="103"/>
+        <element name="Meal" positionX="268.5369873046875" positionY="-18.18252563476562" width="128" height="104"/>
         <element name="Menu" positionX="99" positionY="27" width="128" height="89"/>
     </elements>
 </model>

@@ -9,18 +9,19 @@ import SwiftUI
 
 struct AddMenuView: View {
     @EnvironmentObject private var menuViewModel: MenuViewModel
-    @EnvironmentObject private var mealViewModel: MealViewModel
     
     @Binding var showAddMenu: Bool
     
-    @State var date: Date = Date()
+    @State var date = Date()
     @State var menuType: MenuType = .breakfast
+    @State var selectedMeals = [Meal]()
     
     var body: some View {
         NavigationView {
             Form{
                 datePicker
                 menuTypePicker
+                mealPicker
             }
             .navigationTitle("Add new menu")
             .navigationBarTitleDisplayMode(.inline)
@@ -59,7 +60,52 @@ struct AddMenuView: View {
         }
     }
     
+    private var mealPicker: some View {
+        Section(header: mealsHeaderWithEditButton) {
+            mealsList
+            addMealButton
+        }
+    }
+    
+    private var mealsHeaderWithEditButton: some View {
+        EditButton()
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .overlay(Text("Meals"), alignment: .leading)
+    }
+    
+    private var mealsList: some View {
+        List {
+            ForEach(selectedMeals) { meal in
+                HStack {
+                    Text(meal.emoji ?? "")
+                    Text(meal.name ?? "")
+                }
+            }
+            .onMove { indexSet, offset in
+                selectedMeals.move(fromOffsets: indexSet, toOffset: offset)
+            }
+            .onDelete { indexSet in
+                selectedMeals.remove(atOffsets: indexSet)
+            }
+        }
+    }
+    
+    private var addMealButton: some View {
+        ZStack {
+            NavigationLink(destination: AddMealToMenu(selectedMeals: $selectedMeals)) {}.opacity(0.0)
+            HStack {
+                Text("Add meal...")
+                Spacer()
+                Image(systemName: "plus")
+                    .foregroundColor(.gray)
+            }
+            
+        }
+    }
+    
     private func save() {
+        menuViewModel.add(date: date, type: menuType, meals: selectedMeals)
+        showAddMenu = false
     }
     
     

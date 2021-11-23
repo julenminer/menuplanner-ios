@@ -40,6 +40,25 @@ class MenuStorage: NSObject, ObservableObject {
             NSLog("Error: could not fetch objects: \(error.localizedDescription)")
         }
     }
+    
+    func add(date: Date, type: MenuType, meals: [Meal]) {
+        let newMenu = Menu(context: viewContext)
+        newMenu.date = date
+        newMenu.menuId = UUID()
+        newMenu.type = type.description
+        newMenu.addToMeals(NSOrderedSet(array: meals))
+        
+        saveContext()
+    }
+    
+    private func saveContext() {
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error while saving the menu context: \(error.localizedDescription)")
+        }
+    }
+
 }
 
 extension MenuStorage: NSFetchedResultsControllerDelegate {

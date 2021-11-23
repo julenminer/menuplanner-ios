@@ -39,6 +39,10 @@ class MenuViewModel: ObservableObject {
         }
         return groupedMenus
     }
+    
+    func add(date: Date, type: MenuType, meals: [Meal]) {
+        menuStorage.add(date: date, type: type, meals: meals)
+    }
 }
 
 struct MenuModel: Identifiable {

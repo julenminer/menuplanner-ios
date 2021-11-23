@@ -29,7 +29,8 @@
 		219190D9273EC1E60031D18B /* FoodCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219190D8273EC1E60031D18B /* FoodCategoryViewModel.swift */; };
 		219190DD274250280031D18B /* MealsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219190DC274250280031D18B /* MealsListView.swift */; };
 		21B2E13E270E0BC400E8DBAC /* EditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2E13D270E0BC400E8DBAC /* EditCategoryView.swift */; };
-		21DEDDB62742BABC0031D28C /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEDDB52742BABC0031D28C /* MenuView.swift */; };
+		21B75F26274BFF02003352A0 /* AddMealToMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B75F25274BFF02003352A0 /* AddMealToMenu.swift */; };
+		21B75F28274C1C13003352A0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B75F27274C1C13003352A0 /* MenuView.swift */; };
 		21DEDDB82742BE590031D28C /* MenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEDDB72742BE590031D28C /* MenuType.swift */; };
 		21DEDDBA2742BFF40031D28C /* MenuStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEDDB92742BFF40031D28C /* MenuStorage.swift */; };
 		21DEDDBC2742C2D10031D28C /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEDDBB2742C2D10031D28C /* MenuViewModel.swift */; };
@@ -81,7 +82,8 @@
 		219190D8273EC1E60031D18B /* FoodCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewModel.swift; sourceTree = "<group>"; };
 		219190DC274250280031D18B /* MealsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListView.swift; sourceTree = "<group>"; };
 		21B2E13D270E0BC400E8DBAC /* EditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryView.swift; sourceTree = "<group>"; };
-		21DEDDB52742BABC0031D28C /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		21B75F25274BFF02003352A0 /* AddMealToMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealToMenu.swift; sourceTree = "<group>"; };
+		21B75F27274C1C13003352A0 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		21DEDDB72742BE590031D28C /* MenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuType.swift; sourceTree = "<group>"; };
 		21DEDDB92742BFF40031D28C /* MenuStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuStorage.swift; sourceTree = "<group>"; };
 		21DEDDBB2742C2D10031D28C /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
@@ -280,8 +282,9 @@
 		21DEDDB42742BAAD0031D28C /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				21DEDDB52742BABC0031D28C /* MenuView.swift */,
+				21B75F27274C1C13003352A0 /* MenuView.swift */,
 				21353EAD2746DFFB00E3F802 /* AddMenuView.swift */,
+				21B75F25274BFF02003352A0 /* AddMealToMenu.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -428,11 +431,12 @@
 				2107818226DFF27800A65B2B /* Persistence.swift in Sources */,
 				2107818526DFF27800A65B2B /* MenuPlanner.xcdatamodeld in Sources */,
 				2107817B26DFF27700A65B2B /* CategoriesListView.swift in Sources */,
-				21DEDDB62742BABC0031D28C /* MenuView.swift in Sources */,
 				21377DA426EA2295008C1B22 /* AddCategoryView.swift in Sources */,
 				2171D37B2742535300BD507A /* ValidatedSectionTextField.swift in Sources */,
 				21DEDDB82742BE590031D28C /* MenuType.swift in Sources */,
+				21B75F28274C1C13003352A0 /* MenuView.swift in Sources */,
 				21353EAE2746DFFB00E3F802 /* AddMenuView.swift in Sources */,
+				21B75F26274BFF02003352A0 /* AddMealToMenu.swift in Sources */,
 				2171D3852742852500BD507A /* AddMealView.swift in Sources */,
 				218328D82746AA5D0074FD1C /* DateExtensions.swift in Sources */,
 				2171D3812742691B00BD507A /* MealStorage.swift in Sources */,
