@@ -1,27 +1,30 @@
 //
-//  AddMenuView.swift
+//  AddWeekPlanView.swift
 //  MenuPlanner
 //
-//  Created by Julen Miner on 18/11/21.
+//  Created by Julen Miner on 21/2/22.
 //
 
 import SwiftUI
 
-struct AddMenuView: View {
+struct AddWeekPlanView: View {
     @EnvironmentObject private var menuViewModel: MenuViewModel
     
     @Binding var showAddMenu: Bool
     
-    @State var date = Date()
+    @State var selectedWeekdays: [Date] = [Date()]
     @State var menuType: MenuType = .breakfast
     @State var selectedMeals = [Meal]()
     
     @State var showError: Bool = false
-    
+    @State var showWeekdayError: Bool = false
+    @State var showExistsError: Bool = false
+    @State var existingWeekday: String? = nil
+
     var body: some View {
         NavigationView {
-            Form{
-                datePicker
+            Form {
+                weekdayPicker
                 menuTypePicker
                 mealPicker
             }
@@ -41,17 +44,27 @@ struct AddMenuView: View {
                     dismissButton: .default(Text("Accept"))
                 )
             }
+            .alert(isPresented: $showWeekdayError) {
+                Alert(
+                    title: Text("Select weekday"),
+                    message: Text("At least one date has to be selected"),
+                    dismissButton: .default(Text("Accept"))
+                )
+            }
+            .alert(isPresented: $showExistsError) {
+                Alert(
+                    title: Text("Menu already exists"),
+                    message: Text("A menu of the selected type for \(existingWeekday ?? "") already exists"),
+                    dismissButton: .default(Text("Accept"))
+                )
+            }
         }
     }
     
-    private var datePicker: some View {
-        Section {
-            DatePicker(
-                "Select date",
-                selection: $date,
-                in: fromToday,
-                displayedComponents: .date
-            )
+    private var weekdayPicker: some View {
+        Section (header: Text("Weekdays")){
+            WeekDaysPickerView(week: Date().week(), selectedDates: $selectedWeekdays)
+                .font(.title)
         }
     }
     
@@ -100,7 +113,7 @@ struct AddMenuView: View {
     
     private var addMealButton: some View {
         ZStack {
-            NavigationLink(destination: AddMealToMenu(selectedMeals: $selectedMeals)) {}.opacity(0.0)
+            NavigationLink(destination: MealSelectorView(selectedMeals: $selectedMeals)) {}.opacity(0.0)
             HStack {
                 Text("Add meal...")
                 Spacer()
@@ -113,19 +126,35 @@ struct AddMenuView: View {
     
     private func save() {
         do {
-            try menuViewModel.add(date: date, type: menuType, meals: selectedMeals)
-            showAddMenu = false
+            if(weekdaySelected() && anyMenuExists()) {
+                try menuViewModel.add(weekday: selectedWeekdays.first!.weekdayNumber(), type: menuType, meals: selectedMeals)
+                showAddMenu = false
+            }
         } catch {
             showError = true
         }
     }
     
+    private func weekdaySelected() -> Bool {
+        showWeekdayError = selectedWeekdays.isEmpty
+        return !selectedWeekdays.isEmpty
+    }
     
+    private func anyMenuExists() -> Bool {
+        selectedWeekdays.forEach { day in
+            if(menuViewModel.existsMenu(atWeekday: day.weekdayNumber(), withType: menuType)) {
+                existingWeekday = day.longDayOfTheWeek().lowercased()
+                showExistsError = true
+            }
+        }
+        existingWeekday = nil
+        return true
+    }
 }
 
-struct AddMenuView_Previews: PreviewProvider {
+struct AddWeekPlanView_Previews: PreviewProvider {
     static var previews: some View {
-        AddMenuView(showAddMenu: .constant(true))
+        AddWeekPlanView(showAddMenu: .constant(true))
             .environmentObject(MenuViewModel.preview)
             .environmentObject(MealViewModel.preview)
     }

@@ -10,7 +10,7 @@ import SwiftUI
 struct MainContentView: View {
     var body: some View {
         TabView {
-            MenuView()
+            WeekPlanView()
                 .tabItem({
                     Image(systemName: "calendar")
                     Text("Menu")
@@ -20,19 +20,12 @@ struct MainContentView: View {
                     Image(systemName: "menucard")
                     Text("Meals")
                 })
-                .tag(MainTab.meals)
             CategoriesListView()
                 .tabItem({
                     Image(systemName: "list.bullet")
                     Text("Categories")
                 })
-                .tag(MainTab.categories)
         }
-    }
-    
-    enum MainTab {
-        case meals
-        case categories
     }
 }
 

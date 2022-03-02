@@ -21,7 +21,7 @@ class MenuStorage: NSObject, ObservableObject {
     init(withViewContext viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
         self.viewContext = viewContext
         let fetchRequest = Menu.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Menu.date, ascending: true), NSSortDescriptor(keyPath: \Menu.type, ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Menu.type, ascending: true)]
         menuFetchController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: viewContext,
@@ -41,12 +41,12 @@ class MenuStorage: NSObject, ObservableObject {
         }
     }
     
-    func add(date: Date, type: MenuType, meals: [Meal]) {
+    func add(weekday: Int, type: MenuType, meals: [Meal]) {
         let newMenu = Menu(context: viewContext)
-        newMenu.date = date
+        newMenu.weekday = Int16(weekday)
         newMenu.menuId = UUID()
         newMenu.type = type.description
-        newMenu.addToMeals(NSOrderedSet(array: meals))
+        newMenu.meals = NSOrderedSet(array: meals)
         
         saveContext()
     }
@@ -59,6 +59,16 @@ class MenuStorage: NSObject, ObservableObject {
         menusToDelete.forEach { menu in
             viewContext.delete(menu)
         }
+        
+        saveContext()
+    }
+    
+    func update(withId id: UUID, newWeekday weekday: Int, newType type: MenuType, newMeals meals: [Meal]) {
+        guard let menu = menus.value.first(where: { $0.menuId == id }) else { return }
+        
+        menu.weekday = Int16(weekday)
+        menu.type = type.description
+        menu.meals = NSOrderedSet(array: meals)
         
         saveContext()
     }

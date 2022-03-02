@@ -10,7 +10,8 @@ import Combine
 import UIKit
 
 class MenuViewModel: ObservableObject {
-    @Published var menus: [MenuModel] = []
+    @Published var menus: Dictionary<Int, [Array<Menu>.Element]> = [:]
+    private var rawMenus: [Menu] = []
     
     private var cancellable: AnyCancellable?
     private var menuStorage: MenuStorage
@@ -18,54 +19,46 @@ class MenuViewModel: ObservableObject {
     init(menuStorage: MenuStorage = MenuStorage.shared, menuPublisher: AnyPublisher<[Menu], Never> = MenuStorage.shared.menus.eraseToAnyPublisher()) {
         self.menuStorage = menuStorage
         cancellable = menuPublisher.sink { menus in
-            self.menus = self.menusToMenuModelList(menus: menus)
+            self.rawMenus = menus
+            self.menus = Dictionary(grouping: menus) { Int($0.weekday) }
         }
     }
     
-    private func menusToMenuModelList(menus: [Menu]) -> [MenuModel] {
-        var groupedMenus = [MenuModel]()
-        var previousDate: Date?
-        var currentIndex = 0
-        for menu in menus {
-            if(previousDate == nil) {
-                groupedMenus.append(MenuModel(date: menu.date!, withMenu: menu))
-            } else if (sameDate(previousDate!, menu.date!)){
-                groupedMenus[currentIndex].addMenu(menu)
-            } else {
-                currentIndex += 1
-                groupedMenus.append(MenuModel(date: menu.date!, withMenu: menu))
-            }
-            previousDate = menu.date!
-        }
-        return groupedMenus
-    }
-    
-    private func sameDate(_ date1: Date, _ date2: Date) -> Bool {
-        return Calendar.current.compare(date1, to: date2, toGranularity: .day) == .orderedSame
-    }
-    
-    func add(date: Date, type: MenuType, meals: [Meal]) throws {
-        if(existsMenu(atDate: date, withType: type)) {
+    func add(weekday: Int, type: MenuType, meals: [Meal]) throws {
+        if(existsMenu(atWeekday: weekday, withType: type)) {
             throw MenuViewModelError.DuplicateMenu
         } else {
-            menuStorage.add(date: date, type: type, meals: meals)
+            menuStorage.add(weekday: weekday, type: type, meals: meals)
         }
     }
     
-    private func existsMenu(atDate date: Date, withType type: MenuType) -> Bool {
-        guard let menu = menus.first(where: { sameDate($0.date, date) }) else { return false }
-        switch(type) {
-        case .breakfast:
-            return menu.breakfast != nil
-        case .lunch:
-            return menu.lunch != nil
-        case .dinner:
-            return menu.dinner != nil
-        }
+    func existsMenu(atWeekday weekday: Int, withType type: MenuType) -> Bool {
+        guard let menus = menus[weekday] else { return false }
+        return menus.contains { $0.type == type.description }
     }
     
     func delete(byId id: UUID) {
         menuStorage.delete(ids: [id])
+    }
+    
+    func update(withId id: UUID, newWeekday weekday: Int, newType type: MenuType, newMeals meals: [Meal]) throws {
+        if isSameDateAndType(forId: id, weekday: weekday, type: type) {
+            menuStorage.update(withId: id, newWeekday: weekday, newType: type, newMeals: meals)
+        } else if existsMenu(atWeekday: weekday, withType: type) {
+            throw MenuViewModelError.DuplicateMenu
+        } else {
+            menuStorage.update(withId: id, newWeekday: weekday, newType: type, newMeals: meals)
+        }
+    }
+    
+    func getMenu(withId id: UUID) -> Menu? {
+        guard let menu = rawMenus.first(where: { $0.menuId == id }) else { return nil }
+        return menu
+    }
+    
+    private func isSameDateAndType(forId id: UUID, weekday: Int, type: MenuType) -> Bool {
+        guard let menu = getMenu(withId: id) else { return false }
+        return menu.weekday == weekday && menu.type == type.description
     }
 }
 

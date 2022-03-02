@@ -1,30 +1,33 @@
 //
-//  MenuView.swift
+//  WeekPlanView.swift
 //  MenuPlanner
 //
-//  Created by Julen Miner on 22/11/21.
+//  Created by Julen Miner on 19/2/22.
 //
 
 import SwiftUI
 
-struct MenuView: View {
+struct WeekPlanView: View {
     @EnvironmentObject private var menuViewModel: MenuViewModel
     
+    @State var selectedDay: Date = Date()
     @State var showAddMenu: Bool = false
+    @State var selectedMenuId: UUID?
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(menuViewModel.menus) { menu in
-                    Section(header: Text(menu.date.toLocaleStringWithoutTime())) {
-                        if let (id, breakfast) = menu.breakfastMeals() {
-                            MenuMeals(breakfast, id: id, type: .breakfast)
-                        }
-                        if let (id, lunch) = menu.lunchMeals() {
-                            MenuMeals(lunch, id: id, type: .lunch)
-                        }
-                        if let (id, dinner) = menu.dinnerMeals() {
-                            MenuMeals(dinner, id: id, type: .dinner)
+            VStack {
+                HStack {
+                    Spacer()
+                    Spacer()
+                    WeekView(week: selectedDay.week(), selectedDate: $selectedDay)
+                    Spacer()
+                    Spacer()
+                }
+                List {
+                    ForEach(menuViewModel.menus[selectedDay.weekdayNumber()] ?? []) { menu in
+                        Section(header: Text(menu.type ?? "")) {
+                            MenuMeals(selectedMenuId: $selectedMenuId, meals: menu.meals?.array as? [Meal] ?? [], id: menu.menuId ?? UUID())
                         }
                     }
                 }
@@ -34,9 +37,9 @@ struct MenuView: View {
                     Label("Add Item", systemImage: "plus")
                 }
             }
-            .navigationTitle("Menus")
+            .navigationTitle("Plan")
             .sheet(isPresented: $showAddMenu) {
-                AddMenuView(showAddMenu: $showAddMenu)
+                AddWeekPlanView(showAddMenu: $showAddMenu)
             }
         }
     }
@@ -46,38 +49,21 @@ private struct MenuMeals: View {
     @EnvironmentObject private var menuViewModel: MenuViewModel
     @Environment(\.colorScheme) var currentMode
     
+    @Binding var selectedMenuId: UUID?
+
     let meals: [Meal]
     let id: UUID
-    let menuType: MenuType
-    var header: String {
-        switch(menuType) {
-        case .breakfast:
-            return "Breakfast"
-        case .lunch:
-            return "Lunch"
-        case .dinner:
-            return "Dinner"
-        }
-    }
-    
-    init(_ meals: [Meal], id: UUID, type: MenuType) {
-        self.meals = meals
-        self.id = id
-        self.menuType = type
-    }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(header)
-                    .font(.caption2)
-                Spacer()
-                menuButton
+        ZStack{
+            VStack(alignment: .leading) {
+                ForEach(meals) { meal in
+                    Text("\(meal.emoji ?? "")  \(meal.name ?? "")")
+                        .padding(.vertical, 1)
+                }
             }
-            ForEach(meals) { meal in
-                Text("\(meal.emoji ?? "")  \(meal.name ?? "")")
-                    .padding(.vertical, 1)
-            }
+            Button(action: selectMenu, label: {EmptyView()})
+                .frame(width: 0, height: 0)
         }
         .padding(.vertical, 8)
         .contextMenu { editMenuItems }
@@ -92,8 +78,18 @@ private struct MenuMeals: View {
         }
     }
     
+    @ViewBuilder
     private var editMenuItems: some View {
-        deleteButton
+        Section {
+            editButton
+        }
+        Section {
+            deleteButton
+        }
+    }
+    
+    private var editButton: some View {
+        Button(action: selectMenu, label: {Label("Edit", systemImage: "pencil")})
     }
     
     private var deleteButton: some View {
@@ -114,11 +110,16 @@ private struct MenuMeals: View {
             )
         }
     }
+    
+    private func selectMenu() {
+        selectedMenuId = id
+    }
 }
 
-struct MenuView_Previews: PreviewProvider {
+
+struct WeekPlanView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView()
+        WeekPlanView()
             .environmentObject(MenuViewModel.preview)
     }
 }

@@ -15,7 +15,11 @@
 		2107818526DFF27800A65B2B /* MenuPlanner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2107818326DFF27800A65B2B /* MenuPlanner.xcdatamodeld */; };
 		2107819026DFF27800A65B2B /* MenuPlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2107818F26DFF27800A65B2B /* MenuPlannerTests.swift */; };
 		2107819B26DFF27800A65B2B /* MenuPlannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2107819A26DFF27800A65B2B /* MenuPlannerUITests.swift */; };
-		21353EAE2746DFFB00E3F802 /* AddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21353EAD2746DFFB00E3F802 /* AddMenuView.swift */; };
+		2119A1CA27C419430016A825 /* WeekPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2119A1C927C419430016A825 /* WeekPlanView.swift */; };
+		2119A1CC27C419D10016A825 /* AddWeekPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2119A1CB27C419D10016A825 /* AddWeekPlanView.swift */; };
+		2119A1CE27C41A870016A825 /* MealSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2119A1CD27C41A870016A825 /* MealSelectorView.swift */; };
+		2119A1D027C4373D0016A825 /* EditWeekPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2119A1CF27C4373D0016A825 /* EditWeekPlanView.swift */; };
+		2119A1D227C438BD0016A825 /* WeekDaysPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2119A1D127C438BD0016A825 /* WeekDaysPickerView.swift */; };
 		21377DA426EA2295008C1B22 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21377DA326EA2295008C1B22 /* AddCategoryView.swift */; };
 		21377DAA26EA4126008C1B22 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21377DA926EA4126008C1B22 /* StringExtensions.swift */; };
 		2171D37B2742535300BD507A /* ValidatedSectionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171D37A2742535300BD507A /* ValidatedSectionTextField.swift */; };
@@ -29,8 +33,8 @@
 		219190D9273EC1E60031D18B /* FoodCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219190D8273EC1E60031D18B /* FoodCategoryViewModel.swift */; };
 		219190DD274250280031D18B /* MealsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219190DC274250280031D18B /* MealsListView.swift */; };
 		21B2E13E270E0BC400E8DBAC /* EditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B2E13D270E0BC400E8DBAC /* EditCategoryView.swift */; };
-		21B75F26274BFF02003352A0 /* AddMealToMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B75F25274BFF02003352A0 /* AddMealToMenu.swift */; };
-		21B75F28274C1C13003352A0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B75F27274C1C13003352A0 /* MenuView.swift */; };
+		21CD416427C0F7D9003F19C4 /* WeekDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CD416327C0F7D9003F19C4 /* WeekDayView.swift */; };
+		21CD416627C0FB0D003F19C4 /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CD416527C0FB0D003F19C4 /* WeekView.swift */; };
 		21DEDDB82742BE590031D28C /* MenuType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEDDB72742BE590031D28C /* MenuType.swift */; };
 		21DEDDBA2742BFF40031D28C /* MenuStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEDDB92742BFF40031D28C /* MenuStorage.swift */; };
 		21DEDDBC2742C2D10031D28C /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DEDDBB2742C2D10031D28C /* MenuViewModel.swift */; };
@@ -68,7 +72,11 @@
 		2107819626DFF27800A65B2B /* MenuPlannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuPlannerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2107819A26DFF27800A65B2B /* MenuPlannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlannerUITests.swift; sourceTree = "<group>"; };
 		2107819C26DFF27800A65B2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		21353EAD2746DFFB00E3F802 /* AddMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMenuView.swift; sourceTree = "<group>"; };
+		2119A1C927C419430016A825 /* WeekPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekPlanView.swift; sourceTree = "<group>"; };
+		2119A1CB27C419D10016A825 /* AddWeekPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWeekPlanView.swift; sourceTree = "<group>"; };
+		2119A1CD27C41A870016A825 /* MealSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealSelectorView.swift; sourceTree = "<group>"; };
+		2119A1CF27C4373D0016A825 /* EditWeekPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWeekPlanView.swift; sourceTree = "<group>"; };
+		2119A1D127C438BD0016A825 /* WeekDaysPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDaysPickerView.swift; sourceTree = "<group>"; };
 		21377DA326EA2295008C1B22 /* AddCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
 		21377DA926EA4126008C1B22 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		2171D37A2742535300BD507A /* ValidatedSectionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatedSectionTextField.swift; sourceTree = "<group>"; };
@@ -82,8 +90,8 @@
 		219190D8273EC1E60031D18B /* FoodCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCategoryViewModel.swift; sourceTree = "<group>"; };
 		219190DC274250280031D18B /* MealsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsListView.swift; sourceTree = "<group>"; };
 		21B2E13D270E0BC400E8DBAC /* EditCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryView.swift; sourceTree = "<group>"; };
-		21B75F25274BFF02003352A0 /* AddMealToMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealToMenu.swift; sourceTree = "<group>"; };
-		21B75F27274C1C13003352A0 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		21CD416327C0F7D9003F19C4 /* WeekDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDayView.swift; sourceTree = "<group>"; };
+		21CD416527C0FB0D003F19C4 /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
 		21DEDDB72742BE590031D28C /* MenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuType.swift; sourceTree = "<group>"; };
 		21DEDDB92742BFF40031D28C /* MenuStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuStorage.swift; sourceTree = "<group>"; };
 		21DEDDBB2742C2D10031D28C /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
@@ -187,7 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				2171D37E2742629A00BD507A /* MainContentView.swift */,
-				21DEDDB42742BAAD0031D28C /* Menu */,
+				21CD416127C0F750003F19C4 /* WeekPlan */,
 				219190DA27424FFF0031D18B /* Meals */,
 			);
 			path = Screens;
@@ -279,14 +287,26 @@
 			path = MealsList;
 			sourceTree = "<group>";
 		};
-		21DEDDB42742BAAD0031D28C /* Menu */ = {
+		21CD416127C0F750003F19C4 /* WeekPlan */ = {
 			isa = PBXGroup;
 			children = (
-				21B75F27274C1C13003352A0 /* MenuView.swift */,
-				21353EAD2746DFFB00E3F802 /* AddMenuView.swift */,
-				21B75F25274BFF02003352A0 /* AddMealToMenu.swift */,
+				21CD416227C0F77F003F19C4 /* Week */,
+				2119A1C927C419430016A825 /* WeekPlanView.swift */,
+				2119A1CB27C419D10016A825 /* AddWeekPlanView.swift */,
+				2119A1CF27C4373D0016A825 /* EditWeekPlanView.swift */,
+				2119A1CD27C41A870016A825 /* MealSelectorView.swift */,
 			);
-			path = Menu;
+			path = WeekPlan;
+			sourceTree = "<group>";
+		};
+		21CD416227C0F77F003F19C4 /* Week */ = {
+			isa = PBXGroup;
+			children = (
+				21CD416327C0F7D9003F19C4 /* WeekDayView.swift */,
+				21CD416527C0FB0D003F19C4 /* WeekView.swift */,
+				2119A1D127C438BD0016A825 /* WeekDaysPickerView.swift */,
+			);
+			path = Week;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -433,16 +453,20 @@
 				2107817B26DFF27700A65B2B /* CategoriesListView.swift in Sources */,
 				21377DA426EA2295008C1B22 /* AddCategoryView.swift in Sources */,
 				2171D37B2742535300BD507A /* ValidatedSectionTextField.swift in Sources */,
+				2119A1CC27C419D10016A825 /* AddWeekPlanView.swift in Sources */,
 				21DEDDB82742BE590031D28C /* MenuType.swift in Sources */,
-				21B75F28274C1C13003352A0 /* MenuView.swift in Sources */,
-				21353EAE2746DFFB00E3F802 /* AddMenuView.swift in Sources */,
-				21B75F26274BFF02003352A0 /* AddMealToMenu.swift in Sources */,
+				21CD416627C0FB0D003F19C4 /* WeekView.swift in Sources */,
 				2171D3852742852500BD507A /* AddMealView.swift in Sources */,
 				218328D82746AA5D0074FD1C /* DateExtensions.swift in Sources */,
+				2119A1CA27C419430016A825 /* WeekPlanView.swift in Sources */,
+				2119A1D027C4373D0016A825 /* EditWeekPlanView.swift in Sources */,
 				2171D3812742691B00BD507A /* MealStorage.swift in Sources */,
 				2107817926DFF27700A65B2B /* MenuPlannerApp.swift in Sources */,
 				21B2E13E270E0BC400E8DBAC /* EditCategoryView.swift in Sources */,
 				2171D3872742ACA100BD507A /* EditMealView.swift in Sources */,
+				2119A1CE27C41A870016A825 /* MealSelectorView.swift in Sources */,
+				21CD416427C0F7D9003F19C4 /* WeekDayView.swift in Sources */,
+				2119A1D227C438BD0016A825 /* WeekDaysPickerView.swift in Sources */,
 				219190D9273EC1E60031D18B /* FoodCategoryViewModel.swift in Sources */,
 				219190DD274250280031D18B /* MealsListView.swift in Sources */,
 			);

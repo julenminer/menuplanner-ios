@@ -13,28 +13,27 @@ protocol PersistentStore {
 
 struct PersistenceController {
     static let shared = PersistenceController()
-
+    
     let container: NSPersistentContainer
-
+    
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "MenuPlanner")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
-        print(container.persistentStoreDescriptions.first!.url)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-
+                
                 /*
-                Typical reasons for an error here include:
-                * The parent directory does not exist, cannot be created, or disallows writing.
-                * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                * The device is out of space.
-                * The store could not be migrated to the current model version.
-                Check the error message to determine what the actual problem was.
-                */
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
@@ -105,37 +104,37 @@ extension PersistenceController {
         
         let menu1 = Menu(context: viewContext)
         menu1.type = MenuType.breakfast.description
-        menu1.date = Date()
+        menu1.weekday = 2
         menu1.meals = [meal1, meal2]
         menu1.menuId = UUID()
         
         let menu2 = Menu(context: viewContext)
         menu2.type = MenuType.lunch.description
-        menu2.date = Date()
+        menu2.weekday = 2
         menu2.meals = [meal3, meal4, meal5]
         menu2.menuId = UUID()
         
         let menu3 = Menu(context: viewContext)
         menu3.type = MenuType.dinner.description
-        menu3.date = Date()
+        menu3.weekday = 2
         menu3.meals = [meal6, meal7]
         menu3.menuId = UUID()
         
         let menu4 = Menu(context: viewContext)
         menu4.type = MenuType.breakfast.description
-        menu4.date = Date().addingTimeInterval(1091283)
+        menu4.weekday = 3
         menu4.meals = [meal6, meal7]
-        menu4.menuId = UUID()
+        menu4.menuId = UUID(uuidString: "550e8400-e29b-41d4-a716-446655440000")
         
         let menu5 = Menu(context: viewContext)
         menu5.type = MenuType.breakfast.description
-        menu5.date = Date().addingTimeInterval(1091283)
+        menu5.weekday = 4
         menu5.meals = [meal2, meal5]
         menu5.menuId = UUID()
         
         let menu6 = Menu(context: viewContext)
         menu6.type = MenuType.breakfast.description
-        menu6.date = Date().addingTimeInterval(1239810238)
+        menu6.weekday = 7
         menu6.meals = [meal2, meal5]
         menu6.menuId = UUID()
         

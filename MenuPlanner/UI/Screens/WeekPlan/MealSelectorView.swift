@@ -1,13 +1,13 @@
 //
-//  AddMealToMenu.swift
+//  MealSelectorView.swift
 //  MenuPlanner
 //
-//  Created by Julen Miner on 22/11/21.
+//  Created by Julen Miner on 21/2/22.
 //
 
 import SwiftUI
 
-struct AddMealToMenu: View {
+struct MealSelectorView: View {
     @EnvironmentObject private var mealViewModel: MealViewModel
     
     @Binding var selectedMeals: [Meal]
@@ -45,19 +45,17 @@ struct AddMealToMenu: View {
     }
 }
 
-#if DEBUG
-struct AddMealToMenu_Previews: PreviewProvider {
+struct MealSelectorView_Previews: PreviewProvider {
     static var previews: some View {
-        AddMealToMenuPreview()
+        SelectorPreview()
     }
     
-    struct AddMealToMenuPreview: View {
+    struct SelectorPreview: View {
         @State var selectedMeals = [Meal]()
         
         var body: some View {
-            AddMealToMenu(selectedMeals: $selectedMeals)
+            MealSelectorView(selectedMeals: $selectedMeals)
                 .environmentObject(MealViewModel.preview)
         }
     }
 }
-#endif
